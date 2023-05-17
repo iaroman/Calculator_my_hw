@@ -1,36 +1,38 @@
 package pro.sky.calculatormyhw;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/calculator")
 public class WelcomeController {
-    @GetMapping(path = "/calculator")
+    private final ServiceCalculator serviceCalculator;
+
+    public WelcomeController (ServiceCalculator serviceCalculator) {
+        this.serviceCalculator = serviceCalculator;
+    }
+
+    @GetMapping
     public String welcome() {
         return "Добро пожаловать в калькулятор";
     }
 
-    @GetMapping(path = "/calculator/plus")
-    public String plus(@RequestParam("num1") String num1, @RequestParam("num2") String num2) {
-        int result = Integer.parseInt(num1) + Integer.parseInt(num2);
-        StringBuilder str = new StringBuilder();
-        str.append(num1);
-        str.append(" + ");
-        str.append(num2);
-        str.append(" = ");
-        str.append(result);
-        return str.toString();
+    @GetMapping(path = "/plus")
+    public String plus(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
+        return serviceCalculator.plus(num1, num2);
     }
-    @GetMapping(path = "/calculator/minus")
-    public String minus(@RequestParam("num1") String num1, @RequestParam("num2") String num2) {
-        int result = Integer.parseInt(num1) + Integer.parseInt(num2);
-        StringBuilder str = new StringBuilder();
-        str.append(num1);
-        str.append(" - ");
-        str.append(num2);
-        str.append(" = ");
-        str.append(result);
-        return str.toString();
+    @GetMapping(path = "/minus")
+    public String minus(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
+        return serviceCalculator.minus(num1, num2);
+    }
+    @GetMapping(path = "/multiply")
+    public String multiply(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
+        return serviceCalculator.multiply(num1, num2);
+    }
+    @GetMapping(path = "/divide")
+    public String divide(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
+            return serviceCalculator.divide(num1, num2);
     }
 }

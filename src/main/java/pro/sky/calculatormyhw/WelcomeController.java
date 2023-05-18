@@ -20,19 +20,29 @@ public class WelcomeController {
     }
 
     @GetMapping(path = "/plus")
-    public String plus(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
-        return serviceCalculator.plus(num1, num2);
+    public String plus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+        if (num1 == null || num2 == null)
+            return "Не могу выполнить операцию, так как указаны не все параметры";
+        return serviceCalculator.result(num1, num2, "+", serviceCalculator.plus(num1, num2));
     }
     @GetMapping(path = "/minus")
-    public String minus(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
-        return serviceCalculator.minus(num1, num2);
+    public String minus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+        if (num1 == null || num2 == null)
+            return "Не могу выполнить операцию, так как указаны не все параметры";
+        return serviceCalculator.result(num1, num2, "-", serviceCalculator.plus(num1, num2));
     }
     @GetMapping(path = "/multiply")
-    public String multiply(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
-        return serviceCalculator.multiply(num1, num2);
+    public String multiply(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+        if (num1 == null || num2 == null)
+            return "Не могу выполнить операцию, так как указаны не все параметры";
+        return serviceCalculator.result(num1, num2, "*", serviceCalculator.multiply(num1, num2));
     }
     @GetMapping(path = "/divide")
-    public String divide(@RequestParam(required = false) String num1, @RequestParam(required = false) String num2) {
-            return serviceCalculator.divide(num1, num2);
+    public String divide(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+        if (num1 == null || num2 == null)
+            return "Не могу выполнить операцию, так как указаны не все параметры";
+        if (num2 == 0)
+            return  "Не могу делить на О";
+        return serviceCalculator.result(num1, num2, "/", serviceCalculator.divide(num1, num2));
     }
 }

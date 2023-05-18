@@ -29,7 +29,7 @@ public class WelcomeController {
     public String minus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
         if (num1 == null || num2 == null)
             return "Не могу выполнить операцию, так как указаны не все параметры";
-        return serviceCalculator.result(num1, num2, "-", serviceCalculator.plus(num1, num2));
+        return serviceCalculator.result(num1, num2, "-", serviceCalculator.minus(num1, num2));
     }
     @GetMapping(path = "/multiply")
     public String multiply(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
